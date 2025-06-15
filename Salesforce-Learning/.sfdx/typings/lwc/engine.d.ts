@@ -126,20 +126,6 @@ declare module 'lwc' {
         compareDocumentPosition(otherNode: Node): number;
         contains(otherNode: Node): boolean;
         elementFromPoint(x: number, y: number): Element | null;
-        querySelector<K extends keyof HTMLElementTagNameMap>(
-            selectors: K
-        ): HTMLElementTagNameMap[K] | null;
-        querySelector<K extends keyof SVGElementTagNameMap>(
-            selectors: K
-        ): SVGElementTagNameMap[K] | null;
-        querySelector<E extends Element = Element>(selectors: string): E | null;
-        querySelectorAll<K extends keyof HTMLElementTagNameMap>(
-            selectors: K
-        ): NodeListOf<HTMLElementTagNameMap[K]>;
-        querySelectorAll<K extends keyof SVGElementTagNameMap>(
-            selectors: K
-        ): NodeListOf<SVGElementTagNameMap[K]>;
-        querySelectorAll<E extends Element = Element>(selectors: string): NodeListOf<E>;
     }
 
     /**
@@ -190,15 +176,11 @@ declare module 'lwc' {
 
     /**
      * Decorator factory to wire a property or method to a wire adapter data source
-     * @param adapter the adapter used to provision data
-     * @param config configuration object for the adapter
+     * @param getType imperative accessor for the data source
+     * @param config configuration object for the accessor
      */
-    export function wire(
-        adapter: WireAdapterConstructor | LegacyWireAdapterConstructor,
-        config?: WireConfigValue
-    ): PropertyDecorator;
+    export function wire(getType: (config?: any) => any, config?: any): PropertyDecorator;
 
-    type LegacyWireAdapterConstructor = (config?: any) => any;
     type WireConfigValue = Record<string, any>;
     type ContextValue = Record<string, any>;
 

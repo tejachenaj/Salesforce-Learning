@@ -22,4 +22,19 @@ public with sharing class testApex {
 
     }
 
+    @Auraenabled
+    public static list<contact> getContacts()
+    {
+        list<contact> conList = [select Id , firstName,lastName,Phone from contact
+                                 order by createdDate desc limit 10];
+        return conList;
+    }
+
+    @Auraenabled
+    public static list<contact> getAccounts()
+    {
+        list<contact> conList = [select Id , firstName,lastName,Phone from Account
+                                 order by createdDate desc limit 10];
+        return conList;
+    }
 }
